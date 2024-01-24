@@ -1,0 +1,49 @@
+#!/bin/bash
+
+script_name=`basename $0`
+opr_sys=$(uname -a)
+
+echo "$script_name: Operating System is $opr_sys"
+echo "Major lab 1: bash script named $script_name"
+
+if [ $# != 1 ]
+then
+  echo "$script_name: wrong number of command line arguments"
+  echo "usage -- $script_name <dirname>"
+  exit 1
+fi
+
+dir_name=$1
+if [ ! -d $dir_name ]
+then
+  mkdir $dir_name
+  echo "$script_name: $dir_name directory does not exist, creating it"
+else
+  if [ -z "`ls $dir_name`" ]
+  then
+    echo "$script_name: $dir_name directory exists and is empty"
+  else
+    echo "$script_name: $dir_name directory exists, is non-empty, emptying it"
+    echo "$script_name: contents of directory $dir_name"
+    ls $dir_name
+    echo "$script_name: removing regular files from $dir_name"
+    cd $dir_name
+    files=`ls`
+    for f in $files
+    do
+      if [ -f "$f" ]
+      then
+        rm "$f"
+        echo "removing regular file $f from $dir_name"
+      fi
+    done
+    cd ..
+  fi
+fi
+
+echo "$script_name: putting 3 required files in $dir_name"
+cd $dir_name
+echo "hello1" > required.file1
+echo "hello2" > required.file2
+echo "hello3" > required.file3
+

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+script_name=`basename $0`
+date_time=$(date +"%Y-%m-%d %H:%M:%S")
+opr_sys=$(uname -a)
+
+echo "$script_name: The current date and time is $date_time"
+echo "$script_name: Operating system is $opr_sys"
+echo "Major lab 1: bash script named $script_name"
+
+if [ $# != 1 ]
+then 
+  echo "$script_name: wrong number of command line arguments"
+  echo "usage -- $script_name <friend_name>"
+  exit 1
+fi
+
+name=$1
+if [ "$name" == "User1" -o "$name" == "User2" -o "$name" == "User3" -o "$name" == "User4" ]
+then
+  echo "$script_name: $name's welcome"
+  echo "#include <stdio.h>
+int main() {
+  printf(\"Hello $name, you are now part of the team \n\");
+  return 0;
+}" > welcome.c
+  gcc -o welcome welcome.c
+  ./welcome
+
+else
+  echo "$script_name: no applicable name supplied"
+  exit 1
+fi
+
+

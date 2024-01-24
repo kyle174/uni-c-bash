@@ -1,0 +1,70 @@
+#!/bin/bash
+
+script_name=`basename $0`
+
+echo "Major lab 2: bash script named $script_name"
+
+echo "Please enter your name:"
+read user_name
+echo "Hello, $user_name. Welcome to the script!"
+
+if [ $# != 4 ]
+then
+  echo "wrong number of command line arguments, execution aborted"
+  exit 1
+fi
+
+if [ -d "A4" ]
+then
+  echo "Directory A4 has been deleted"
+  rm -r A4
+else
+  echo "Directory A4 does not exist"
+fi
+
+valid=false
+while [ $valid = false ]
+do
+echo "The source directory is $1 (YES/NO)"
+read response1
+if [ $response1 = "NO" ]
+then
+  echo "you requested execution abortion"
+  exit 1
+elif [ $response1 != "YES" ]
+then
+  echo "incorrect response, redo"
+else
+  valid=true
+fi
+done
+
+valid=false
+while [ $valid = false ]
+do
+echo "The destination directories are $2 and $3 (YES/NO)"
+read response2
+if [ $response2 = "NO" ]
+then
+  echo "you requested execution abortion"
+  exit 1
+elif [ $response2 != "YES" ]
+then
+  echo "incorrect response, redo"
+else
+  valid=true
+fi
+done
+
+echo "moving files from $1 to $2, $3"
+files=`ls $1`
+for f in $files
+do
+  x=`grep A $1/$f`
+  if [ -z "$x" ]
+  then
+    mv $1/$f $3
+  else
+    mv $1/$f $2
+  fi
+done

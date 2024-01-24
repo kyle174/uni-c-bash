@@ -1,0 +1,22 @@
+#!/bin/bash
+
+script_name=`basename $0`
+current_date=$(date +"%Y-%m-%d %H:%M:%S")
+
+echo "Major lab 2: bash script named $script_name"
+echo "$script_name: The current date and time is $current_date"
+
+mkdir A1
+mkdir A2
+mkdir A3
+mkdir A4
+
+cd A1
+echo "CAT" >> file1
+echo "DOG" >> file2
+echo "COW" >> file3
+
+cd ..
+cd A4
+echo "PIG" >> file4
+echo "BAT" >> file5

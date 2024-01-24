@@ -1,0 +1,28 @@
+#!/bin/bash
+
+echo "#include <stdio.h>
+extern int layA();
+extern int layB();
+extern int layC();
+int main() {
+ printf(\"The Operating System has three layers: A, B, and C \n\");
+ printf(\"Layer A\n\");
+ layA();
+ printf(\"Layer B\n\");
+ layB();
+ printf(\"Layer C\n\");
+ layC();
+ return 0;
+}" > test.c
+
+echo "#include <stdio.h>
+int layA() {
+ printf(\"Layer A: is running successfully \n\");
+ return 0;
+}" > testA.c
+
+make Complete
+./Complete
+
+rm test.c testA.c testA.o testB.c testB.o testC.c testC.o Complete
+
